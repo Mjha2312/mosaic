@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-abyss text-ink font-body antialiased overflow-x-hidden;
+    font-feature-settings: 'ss01' on, 'cv01' on;
+  }
+
+  ::selection {
+    @apply bg-electric/40 text-white;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-white/20;
+  }
+
+  /* Focus visibility for a11y */
+  :focus-visible {
+    outline: 2px solid theme('colors.cyber');
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Avoid focus ring on the clickaway backdrops */
+  button[aria-label='Close']:focus-visible,
+  .cursor-default:focus-visible {
+    outline: none;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card-glass backdrop-blur-xl border border-white/10 rounded-3xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-sheet {
+    @apply bg-[#0d0d14]/90 backdrop-blur-2xl border-t border-white/10;
+    box-shadow: 0 -8px 60px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .micro-label {
+    @apply uppercase font-semibold tracking-[0.2em] text-muted text-[11px];
+  }
+
+  .neon-text-electric {
+    background: linear-gradient(135deg, #6a5cff, #00e5ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .neon-text-hyper {
+    background: linear-gradient(135deg, #ff3df5, #ff9a3f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .neon-text-cyber {
+    background: linear-gradient(135deg, #00e5ff, #6a5cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .neon-text-acid {
+    background: linear-gradient(135deg, #d4ff3f, #6a5cff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .grid-noise {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.06) 1px, transparent 0);
+    background-size: 36px 36px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Exchange particle burst */
+@keyframes exchangeParticle {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--px, 0px), var(--py, -30px)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Pulsing ring behind the center prompt */
+@keyframes promptPulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.06); }
+}
+
+/* Slow draw-in for SVG connectors on mount */
+@keyframes drawLine {
+  from { stroke-dashoffset: 6; }
+  to { stroke-dashoffset: 0; }
+}
